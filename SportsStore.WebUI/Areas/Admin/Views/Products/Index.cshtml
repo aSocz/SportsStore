@@ -1,0 +1,35 @@
+﻿@using System.Web.Mvc.Html
+@model IEnumerable<SportsStore.WebUI.Areas.Admin.Models.ManageProductViewModel>
+
+@{
+    ViewBag.Title = "Zarządzanie produktami";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout";
+}
+
+<h2>@ViewBag.Title</h2>
+<p>
+    @Html.ActionLink("Utwórz nowy", "Create", new { Area = "Admin" })
+</p>
+<table>
+    <tr>
+        <th>@Html.DisplayNameFor(m => m.Name)</th>
+        <th>@Html.DisplayNameFor(m => m.Description)</th>
+        <th>@Html.DisplayNameFor(m => m.Price)</th>
+        <th>@Html.DisplayNameFor(m => m.CategoryName)</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>@Html.LabelFor(m => item.Name)</td>
+        <td>@Html.LabelFor(m => item.Description)</td>
+        <td>@Html.LabelFor(m => item.Price)</td>
+        <td>@Html.LabelFor(m => item.CategoryName)</td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { Area = "Admin", productId = item.ProductId })
+            @Html.ActionLink("Szczegóły", "Details", new { Area = "Admin", productId = item.ProductId })
+            @Html.ActionLink("Usuń", "Delete", new { Area = "Admin", productId = item.ProductId })
+        </td>
+    </tr>       
+    }
+</table>

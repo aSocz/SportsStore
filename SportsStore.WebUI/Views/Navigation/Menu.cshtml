@@ -1,0 +1,31 @@
+﻿@model System.Collections.Generic.IEnumerable<System.Web.Mvc.SelectListItem>
+@{
+    var horizontal = (bool)(ViewContext.RouteData.Values["horizontal"] ?? false);
+    var wrapperClass = horizontal ? "btn-group btn-group-sm btn-group-justified" : null;
+}
+<div class="@wrapperClass">
+    @Html.ActionLink("Home",
+                     "List",
+                     "Products",
+                     null,
+                     new
+                     {
+                         @class = "btn btn-block btn-default " + (horizontal ? "btn-sm " : "btn-lg ")  + (Model.Any(i => i.Selected) ? string.Empty : "btn-primary")
+                     })
+
+    @foreach (var item in Model)
+    {
+        @Html.RouteLink(item.Text,
+                        new
+                        {
+                            controller = "Products",
+                            action = "List",
+                            categoryId = item.Value,
+                            page = 1
+                        },
+                        new
+                        {
+                            @class = "btn btn-default " + (horizontal ? "btn-sm " : "btn-block btn-lg ") + (item.Selected ? "btn-primary" : string.Empty)
+                        })
+    }
+</div>
