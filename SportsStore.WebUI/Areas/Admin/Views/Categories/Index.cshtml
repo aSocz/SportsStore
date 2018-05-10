@@ -1,0 +1,37 @@
+﻿@using System.Web.Mvc.Html
+@model IEnumerable<SportsStore.WebUI.Areas.Admin.Models.ManageCategoryViewModel>
+
+@{
+    ViewBag.Title = "Zarządzanie kategoriami";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>@ViewBag.Title</h3>
+    </div>
+</div>
+<div class="panel-body">
+    <table class="table table-striped table-condensed table-bordered">
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.Name)</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(item.Name, "Edit", new { item.CategoryId, area = "Admin" })</td>
+                <td>
+                    @using (Html.BeginForm("Delete", "Categories"))
+                    {
+                        @Html.Hidden("CategoryId", item.CategoryId)
+                        <input type="submit" value="Usuń" />
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="panel-footer">
+    @Html.ActionLink("Dodaj nową kategorie", "Create", new { area = "Admin" }, new { @class = "btn btn-default" })
+</div>

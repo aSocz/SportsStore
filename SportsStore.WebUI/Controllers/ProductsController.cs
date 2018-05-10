@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using SportsStore.Domain.Entities;
 using SportsStore.Domain.Interfaces;
 using SportsStore.WebUI.Models;
 using System.Linq;
@@ -29,7 +28,7 @@ namespace SportsStore.WebUI.Controllers
                 TotalItems = productService.GetProductsCount(categoryId)
             };
 
-            var productViewModel = Mapper.Map<Product[], ProductViewModel[]>(products.ToArray());
+            var productViewModel = Mapper.Map<ProductViewModel[]>(products.ToArray());
             var viewModel = new ProductListViewModel
             {
                 PagingInfo = pagingInfo,

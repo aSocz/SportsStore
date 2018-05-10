@@ -1,0 +1,13 @@
+﻿@model SportsStore.WebUI.Areas.Admin.Models.ManageCategoryViewModel
+
+@{
+    ViewBag.Title = "Dodawanie kategorii";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.DisplayNameFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name)
+    <input type="submit" value="Dodaj kategorię" />
+}

@@ -12,5 +12,13 @@ namespace SportsStore.Domain.Entities
 
         public virtual Category Category { get; set; }
         public virtual ICollection<CartLine> CartLines { get; set; }
+
+        public void Update(Product updatedProduct)
+        {
+            Name = updatedProduct.Name;
+            Description = updatedProduct.Description;
+            Price = updatedProduct.Price;
+            CategoryId = updatedProduct.CategoryId;
+        }
     }
 }

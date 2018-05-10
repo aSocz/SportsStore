@@ -9,12 +9,10 @@ namespace SportsStore.Infrastructure.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly SportsStoreContext dbContext;
         private readonly IDbSet<T> dbSet;
 
         public Repository(SportsStoreContext dbContext)
         {
-            this.dbContext = dbContext;
             dbSet = dbContext.Set<T>();
         }
 
@@ -30,6 +28,11 @@ namespace SportsStore.Infrastructure.Repositories
         public void Insert(T entity)
         {
             dbSet.Add(entity);
+        }
+
+        public void Delete(T entity)
+        {
+            dbSet.Remove(entity);
         }
     }
 }

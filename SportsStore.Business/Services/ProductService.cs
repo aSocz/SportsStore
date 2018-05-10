@@ -1,17 +1,21 @@
-﻿using SportsStore.Domain.Entities;
+﻿using SportsStore.Business.Extensions;
+using SportsStore.Domain.Entities;
 using SportsStore.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SportsStore.Business.Services
 {
     public class ProductService : IProductService
     {
         private readonly IRepository<Product> productRepository;
+        private readonly IUnitOfWork unitOfWork;
 
         public ProductService(IUnitOfWork unitOfWork)
         {
             productRepository = unitOfWork.GetRepository<Product>();
+            this.unitOfWork = unitOfWork;
         }
 
         public IEnumerable<Product> GetAllProducts()
@@ -20,6 +24,29 @@ namespace SportsStore.Business.Services
         public Product GetProduct(int productId) =>
             productRepository.GetNoTracking(p => p.ProductId == productId).FirstOrDefault();
 
+        public async Task CreateProduct(Product product)
+        {
+            productRepository.Insert(product);
+            await unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task EditProduct(Product updatedProduct)
+        {
+            var product = productRepository.Get(p => p.ProductId == updatedProduct.ProductId).FirstOrDefault();
+            product.ThrowIfNull();
+
+            product.Update(updatedProduct);
+            await unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task DeleteProduct(int productId)
+        {
+            var product = productRepository.Get(p => p.ProductId == productId).FirstOrDefault();
+            product.ThrowIfNull();
+
+            productRepository.Delete(product);
+            await unitOfWork.SaveChangesAsync();
+        }
 
         public IEnumerable<Product> GetPagedProducts(int page, int pageSize)
             => PageProducts(GetAllProducts(), page, pageSize);

@@ -11,5 +11,6 @@ namespace SportsStore.Domain.Interfaces
         IEnumerable<T> GetNoTracking(Expression<Func<T, bool>> predicate);
         IEnumerable<T> GetAllNoTracking();
         void Insert(T entity);
+        void Delete(T entity);
     }
 }

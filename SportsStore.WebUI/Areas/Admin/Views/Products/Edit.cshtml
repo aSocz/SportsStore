@@ -1,0 +1,20 @@
+﻿@model SportsStore.WebUI.Areas.Admin.Models.ProductDetailsViewModel
+
+@{
+    ViewBag.Title = "Edycja produktu";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.ProductId)
+    @Html.DisplayNameFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name)
+    @Html.DisplayNameFor(m => m.Price)
+    @Html.TextBoxFor(m => m.Price)
+    @Html.DisplayNameFor(m => m.Description)
+    @Html.TextAreaFor(m => m.Description)
+    @Html.DisplayNameFor(m => m.CategoryId)
+    @Html.DropDownListFor(m => m.CategoryId, Model.Categories)
+    <input type="submit" value="Zapisz produkt" />
+}

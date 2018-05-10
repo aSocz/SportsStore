@@ -3,33 +3,39 @@
 
 @{
     ViewBag.Title = "Zarządzanie produktami";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
-<p>
-    @Html.ActionLink("Utwórz nowy", "Create", new { Area = "Admin" })
-</p>
-<table>
-    <tr>
-        <th>@Html.DisplayNameFor(m => m.Name)</th>
-        <th>@Html.DisplayNameFor(m => m.Description)</th>
-        <th>@Html.DisplayNameFor(m => m.Price)</th>
-        <th>@Html.DisplayNameFor(m => m.CategoryName)</th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>@Html.LabelFor(m => item.Name)</td>
-        <td>@Html.LabelFor(m => item.Description)</td>
-        <td>@Html.LabelFor(m => item.Price)</td>
-        <td>@Html.LabelFor(m => item.CategoryName)</td>
-        <td>
-            @Html.ActionLink("Edytuj", "Edit", new { Area = "Admin", productId = item.ProductId })
-            @Html.ActionLink("Szczegóły", "Details", new { Area = "Admin", productId = item.ProductId })
-            @Html.ActionLink("Usuń", "Delete", new { Area = "Admin", productId = item.ProductId })
-        </td>
-    </tr>       
-    }
-</table>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>@ViewBag.Title</h3>
+    </div>
+</div>
+<div class="panel-body">
+    <table class="table table-striped table-condensed table-bordered">
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.Name)</th>
+            <th>@Html.DisplayNameFor(m => m.CategoryName)</th>
+            <th class="NumericCol">@Html.DisplayNameFor(m => m.Price)</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(item.Name, "Edit", new { item.ProductId, area = "Admin" })</td>
+                <td>@item.CategoryName</td>
+                <td class="NumericCol ">@item.Price.ToString("C")</td>
+                <td>
+                    @using (Html.BeginForm("Delete", "Products"))
+                    {
+                        @Html.Hidden("ProductId", item.ProductId)
+                        <input type="submit" value="Usuń" />
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="panel-footer">
+    @Html.ActionLink("Dodaj nowy produkt", "Create", new { area = "Admin" }, new { @class= "btn btn-default"})
+</div>

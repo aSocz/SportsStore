@@ -1,0 +1,14 @@
+﻿@model SportsStore.WebUI.Areas.Admin.Models.ManageCategoryViewModel
+
+@{
+    ViewBag.Title = "Edycja kategorii";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.CategoryId)
+    @Html.DisplayNameFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name)
+    <input type="submit" value="Zapisz kategorię" />
+}
