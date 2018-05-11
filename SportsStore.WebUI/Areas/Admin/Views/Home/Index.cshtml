@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Dodawanie produktu";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link type="text/css" rel="stylesheet" href="~/Content/tiles.css">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                <strong>Panel administracyjny</strong>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <a href="@Url.Action("Index", "Products")" class="tile blue">
+                <h3 class="title">Zarządzanie produktami</h3>
+                <p>Dodawanie/usuwanie/edycja produktów</p>
+            </a>
+        </div>
+        <div class="col-sm-4">
+            <a href="@Url.Action("Index", "Categories")" class="tile green">
+                <h3 class="title">Zarządzanie kategoriami</h3>
+                <p>Dodawanie/usuwanie/edycja kategorii</p>
+            </a>
+        </div>
+    </div>
+</div>

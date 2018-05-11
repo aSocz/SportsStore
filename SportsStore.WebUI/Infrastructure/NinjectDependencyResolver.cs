@@ -1,6 +1,9 @@
 ﻿using Ninject;
 using Ninject.Web.Common;
 using SportsStore.Business.Services;
+using SportsStore.Business.Validation;
+using SportsStore.Business.Validation.Validators;
+using SportsStore.Domain.Entities;
 using SportsStore.Domain.Interfaces;
 using SportsStore.Infrastructure;
 using SportsStore.Infrastructure.Repositories;
@@ -40,6 +43,8 @@ namespace SportsStore.WebUI.Infrastructure
             kernel.Bind<ICategoryService>().To<CategoryService>().InRequestScope();
             kernel.Bind<IOrderService>().To<OrderService>().InRequestScope();
             kernel.Bind<IEmailSender>().To<EmailSender>().InRequestScope();
+            kernel.Bind(typeof(IValidator<Category>)).To(typeof(CategoryValidator)).InRequestScope();
+            kernel.Bind(typeof(IValidator<Product>)).To(typeof(ProductValidator)).InRequestScope();
         }
     }
 }

@@ -8,7 +8,13 @@ namespace SportsStore.WebUI.Extensions
 {
     public static class ProductExtensions
     {
-        public static Product ToProduct(this ProductDetailsViewModel viewModel) => Mapper.Map<Product>(viewModel);
+        public static Product ToProduct(this ProductDetailsViewModel viewModel)
+        {
+            var product = Mapper.Map<Product>(viewModel);
+            product.IsActive = true;
+
+            return product;
+        }
 
         public static ProductDetailsViewModel
             ToViewModel(this Product product, IEnumerable<SelectListItem> categories)

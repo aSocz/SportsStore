@@ -42,9 +42,14 @@ namespace SportsStore.Business.Services
 
         public async Task DeleteCategory(int categoryId)
         {
+            var orderRepository = unitOfWork.GetRepository<Order>();
+
             var category = categoryRepository.Get(c => c.CategoryId == categoryId).FirstOrDefault();
             category.ThrowIfNull();
 
+            var categoryOrders = category.Products.SelectMany(p => p.CartLines.Select(cl => cl.Order)).ToList();
+
+            categoryOrders.ForEach(o => orderRepository.Delete(o));
             categoryRepository.Delete(category);
             await unitOfWork.SaveChangesAsync();
         }

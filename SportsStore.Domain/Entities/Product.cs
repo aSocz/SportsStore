@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using SportsStore.Domain.Interfaces;
+using System.Collections.Generic;
 
 namespace SportsStore.Domain.Entities
 {
-    public class Product
+    public class Product : IValidatable
     {
         public int ProductId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+        public bool IsActive { get; set; }
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using SportsStore.Domain.Interfaces;
+using System.Collections.Generic;
 
 namespace SportsStore.Domain.Entities
 {
-    public class Category
+    public class Category : IValidatable
     {
         public int CategoryId { get; set; }
         public string Name { get; set; }

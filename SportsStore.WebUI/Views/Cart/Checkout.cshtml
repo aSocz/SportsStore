@@ -10,6 +10,7 @@
 @using (Html.BeginForm("Checkout", "Cart"))
 {
     @Html.ValidationSummary()
+    @Html.AntiForgeryToken()
 
     <h3>Wysyłka dla:</h3>
 
@@ -20,7 +21,7 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Email)
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type="email" })
     </div>
 
     <h3>Adres:</h3>

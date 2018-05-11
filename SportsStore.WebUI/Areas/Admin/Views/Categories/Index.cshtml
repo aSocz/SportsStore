@@ -24,8 +24,15 @@
                 <td>
                     @using (Html.BeginForm("Delete", "Categories"))
                     {
+                        @Html.AntiForgeryToken()
                         @Html.Hidden("CategoryId", item.CategoryId)
-                        <input type="submit" value="Usuń" />
+                        <div class="form-inline">
+                            <span class="btn btn-default btn-sm delete-button">Usuń</span>
+                            <input style="display: none;" type="submit" value="Usuń" class="btn btn-default btn-sm form-submit" />
+                            <span style="visibility: hidden;" class="label label-danger form-alert">
+                                Usunięcie kategorii spowoduje usunięcie wszystkich powiązanych z nią produktów, jak i również zamówień. Czy chcesz kontynuować?
+                            </span>
+                        </div>
                     }
                 </td>
             </tr>

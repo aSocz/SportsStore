@@ -64,6 +64,10 @@
     <Compile Include="Migrations\201804071341531_adds_required_attributes.Designer.cs">
       <DependentUpon>201804071341531_adds_required_attributes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805112210452_adds_product_soft_delete.cs" />
+    <Compile Include="Migrations\201805112210452_adds_product_soft_delete.Designer.cs">
+      <DependentUpon>201805112210452_adds_product_soft_delete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="Tools\EmailSender.cs" />
@@ -104,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804071341531_adds_required_attributes.resx">
       <DependentUpon>201804071341531_adds_required_attributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805112210452_adds_product_soft_delete.resx">
+      <DependentUpon>201805112210452_adds_product_soft_delete.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

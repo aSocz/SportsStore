@@ -4,11 +4,25 @@
     ViewBag.Title = "Edycja kategorii";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+<div class="panel">
+    <div class="panel">
+        <h1>Edycja kategorii</h1>
+    </div>
 
-@using (Html.BeginForm())
-{
-    @Html.HiddenFor(m => m.CategoryId)
-    @Html.DisplayNameFor(m => m.Name)
-    @Html.TextBoxFor(m => m.Name)
-    <input type="submit" value="Zapisz kategorię" />
-}
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="panel-body">
+            @Html.HiddenFor(m => m.CategoryId)
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+        </div>
+        <div class="panel-footer">
+            <input type="submit" value="Zapisz kategorie" class="btn btn-primary" />
+            @Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

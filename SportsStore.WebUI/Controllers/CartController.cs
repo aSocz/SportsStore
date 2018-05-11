@@ -73,6 +73,7 @@ namespace SportsStore.WebUI.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ViewResult> Checkout(Cart cart, ShippingInformationViewModel viewModel)
         {
             if (!cart.Items.Any())

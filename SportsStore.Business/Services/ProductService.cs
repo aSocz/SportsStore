@@ -18,11 +18,10 @@ namespace SportsStore.Business.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Product> GetAllProducts()
-            => productRepository.GetAllNoTracking();
+        public IEnumerable<Product> GetAllProducts() => productRepository.GetNoTracking(p => p.IsActive);
 
         public Product GetProduct(int productId) =>
-            productRepository.GetNoTracking(p => p.ProductId == productId).FirstOrDefault();
+            productRepository.GetNoTracking(p => p.ProductId == productId && p.IsActive).FirstOrDefault();
 
         public async Task CreateProduct(Product product)
         {
@@ -44,7 +43,7 @@ namespace SportsStore.Business.Services
             var product = productRepository.Get(p => p.ProductId == productId).FirstOrDefault();
             product.ThrowIfNull();
 
-            productRepository.Delete(product);
+            product.IsActive = false;
             await unitOfWork.SaveChangesAsync();
         }
 
@@ -52,10 +51,10 @@ namespace SportsStore.Business.Services
             => PageProducts(GetAllProducts(), page, pageSize);
 
         public IEnumerable<Product> GetCategoryPagedProducts(int categoryId, int page, int pageSize)
-            => PageProducts(productRepository.GetNoTracking(p => p.CategoryId == categoryId), page, pageSize);
+            => PageProducts(productRepository.GetNoTracking(p => p.CategoryId == categoryId && p.IsActive), page, pageSize);
 
         public int GetProductsCount(int? categoryId)
-            => productRepository.GetNoTracking(p => !categoryId.HasValue || p.CategoryId == categoryId.Value).Count();
+            => productRepository.GetNoTracking(p => (!categoryId.HasValue || p.CategoryId == categoryId.Value) && p.IsActive).Count();
 
         private static IEnumerable<Product> PageProducts(IEnumerable<Product> products, int page, int pageSize)
             => products.OrderBy(p => p.Name).Skip((page - 1) * pageSize).Take(pageSize);

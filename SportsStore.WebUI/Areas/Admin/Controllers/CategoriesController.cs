@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SportsStore.Business.Validation;
 using SportsStore.Domain.Entities;
 using SportsStore.Domain.Interfaces;
 using SportsStore.WebUI.Areas.Admin.Models;
@@ -12,10 +13,12 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
     public class CategoriesController : Controller
     {
         private readonly ICategoryService categoryService;
+        private readonly IValidator<Category> categoryValidator;
 
-        public CategoriesController(ICategoryService categoryService)
+        public CategoriesController(ICategoryService categoryService, IValidator<Category> categoryValidator)
         {
             this.categoryService = categoryService;
+            this.categoryValidator = categoryValidator;
         }
 
         public ViewResult Index()
@@ -35,10 +38,26 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ManageCategoryViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             var category = viewModel.ToCategory();
+
+            var validationResult = categoryValidator.Validate(category);
+            if (!validationResult.IsValid())
+            {
+                validationResult.Errors.ToList().ForEach(e => ModelState.AddModelError(e.PropertyName, e.ErrorMessage));
+                return View(viewModel);
+            }
+
             await categoryService.CreateCategory(category);
+
+            TempData["message"] = $"Dodano kategorie {category.Name}";
 
             return RedirectToActionPermanent("Index");
         }
@@ -53,18 +72,39 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ManageCategoryViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             var category = viewModel.ToCategory();
+
+            var validationResult = categoryValidator.Validate(category);
+            if (!validationResult.IsValid())
+            {
+                validationResult.Errors.ToList().ForEach(e => ModelState.AddModelError(e.PropertyName, e.ErrorMessage));
+                return View(viewModel);
+            }
+
             await categoryService.EditCategory(category);
+
+            TempData["message"] = $"Zapisano kategorie {category.Name}";
 
             return RedirectToActionPermanent("Index");
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int categoryId)
         {
+            var category = categoryService.GetCategory(categoryId);
             await categoryService.DeleteCategory(categoryId);
+
+            TempData["message"] = $"Usunięto kategorie {category.Name}";
+
 
             return RedirectToActionPermanent("Index");
         }
