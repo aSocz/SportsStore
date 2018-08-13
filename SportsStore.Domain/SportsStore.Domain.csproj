@@ -47,6 +47,7 @@
     <Compile Include="Entities\CartLine.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Email.cs" />
+    <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />

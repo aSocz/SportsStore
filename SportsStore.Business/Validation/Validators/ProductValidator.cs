@@ -24,7 +24,8 @@ namespace SportsStore.Business.Validation.Validators
                 productRepository.GetNoTracking(
                                       p => p.Name.Equals(validatableObject.Name, StringComparison.Ordinal)
                                         && p.CategoryId == validatableObject.CategoryId
-                                        && p.IsActive)
+                                        && p.IsActive
+                                        && p.ProductId != validatableObject.ProductId)
                                  .Any();
 
             if (doesAnyActiveProductWithTheSameNameAndCategoryExist)

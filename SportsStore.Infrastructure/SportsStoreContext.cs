@@ -1,5 +1,5 @@
-﻿using System.Data.Entity;
-using SportsStore.Domain.Entities;
+﻿using SportsStore.Domain.Entities;
+using System.Data.Entity;
 
 namespace SportsStore.Infrastructure
 {
@@ -87,6 +87,8 @@ namespace SportsStore.Infrastructure
                         .HasForeignKey(e => e.CategoryId);
             modelBuilder.Entity<Product>().Property(e => e.Name).IsRequired().HasMaxLength(50);
             modelBuilder.Entity<Product>().Property(e => e.Price).HasPrecision(10, 2).IsRequired();
+            modelBuilder.Entity<Product>().Property(e => e.Thumbnail.ImageData).HasColumnName("ImageData");
+            modelBuilder.Entity<Product>().Property(e => e.Thumbnail.ImageType).HasColumnName("ImageMimeType");
         }
     }
 }

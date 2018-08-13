@@ -26,6 +26,10 @@ namespace SportsStore.WebUI.Areas.Admin.Models
         [Display(Name = "Kategoria")]
         public int CategoryId { get; set; }
 
+        public byte[] ImageData { get; set; }
+
+        public string ImageType { get; set; }
+
         public IEnumerable<SelectListItem> Categories { get; set; }
     }
 }

@@ -16,10 +16,10 @@ namespace SportsStore.WebUI
                 {
                     controller = "Products",
                     action = "List",
-                    categoryId = (int?) null,
+                    categoryId = (int?)null,
                     page = 1
                 },
-                new[] {"SportsStore.WebUI.Controllers"});
+                new[] { "SportsStore.WebUI.Controllers" });
 
             routes.MapRoute(
                 null,
@@ -28,11 +28,11 @@ namespace SportsStore.WebUI
                 {
                     controller = "Products",
                     action = "List",
-                    categoryId = (int?) null,
+                    categoryId = (int?)null,
                 },
                 new
-                    {page = @"\d+"},
-                new[] {"SportsStore.WebUI.Controllers"});
+                { page = @"\d+" },
+                new[] { "SportsStore.WebUI.Controllers" });
 
             routes.MapRoute(
                 null,
@@ -44,8 +44,8 @@ namespace SportsStore.WebUI
                     page = 1
                 },
                 new
-                    {categoryId = @"\d+"},
-                new[] {"SportsStore.WebUI.Controllers"});
+                { categoryId = @"\d+" },
+                new[] { "SportsStore.WebUI.Controllers" });
 
             routes.MapRoute(
                 null,
@@ -60,13 +60,13 @@ namespace SportsStore.WebUI
                     categoryId = @"\d+",
                     page = @"\d+"
                 },
-                new[] {"SportsStore.WebUI.Controllers"});
+                new[] { "SportsStore.WebUI.Controllers" });
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { action = "Index", id = UrlParameter.Optional },
-                namespaces: new[] {"SportsStore.WebUI.Controllers"}
+                namespaces: new[] { "SportsStore.WebUI.Controllers" }
             );
         }
     }

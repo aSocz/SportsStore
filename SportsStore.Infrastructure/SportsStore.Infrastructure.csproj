@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201805112210452_adds_product_soft_delete.Designer.cs">
       <DependentUpon>201805112210452_adds_product_soft_delete.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808041025538_AddsProductThumbnail.cs" />
+    <Compile Include="Migrations\201808041025538_AddsProductThumbnail.Designer.cs">
+      <DependentUpon>201808041025538_AddsProductThumbnail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="Tools\EmailSender.cs" />
@@ -111,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805112210452_adds_product_soft_delete.resx">
       <DependentUpon>201805112210452_adds_product_soft_delete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808041025538_AddsProductThumbnail.resx">
+      <DependentUpon>201808041025538_AddsProductThumbnail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

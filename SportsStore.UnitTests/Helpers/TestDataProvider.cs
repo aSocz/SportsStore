@@ -13,13 +13,13 @@ namespace SportsStore.UnitTests.Helpers
         public static readonly Address Address = new Address("Line1", "City", "State", "Zip", "Country", "Line2", "Line3");
         public static readonly Product[] Products =
         {
-            new Product {ProductId = 1, CategoryId = 1, Name = "P1"},
-            new Product {ProductId = 2, CategoryId = 1, Name = "P2"},
-            new Product {ProductId = 3, CategoryId = 1, Name = "P3"},
-            new Product {ProductId = 4, CategoryId = 2, Name = "P4"},
-            new Product {ProductId = 5, CategoryId = 2, Name = "P5"},
-            new Product {ProductId = 6, CategoryId = 3, Name = "P6"},
-            new Product {ProductId = 7, CategoryId = 3, Name = "P7"}
+            new Product {ProductId = 1, CategoryId = 1, Name = "P1", IsActive = true},
+            new Product {ProductId = 2, CategoryId = 1, Name = "P2", IsActive = true},
+            new Product {ProductId = 3, CategoryId = 1, Name = "P3", IsActive = true},
+            new Product {ProductId = 4, CategoryId = 2, Name = "P4", IsActive = true},
+            new Product {ProductId = 5, CategoryId = 2, Name = "P5", IsActive = true},
+            new Product {ProductId = 6, CategoryId = 3, Name = "P6", IsActive = true},
+            new Product {ProductId = 7, CategoryId = 3, Name = "P7", IsActive = true}
         };
 
         public static readonly Category[] Categories =

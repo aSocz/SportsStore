@@ -19,9 +19,19 @@ namespace SportsStore.WebUI.Infrastructure
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<Product, ManageProductViewModel>();
-                cfg.CreateMap<Product, ProductViewModel>();
-                cfg.CreateMap<Product, ProductDetailsViewModel>().ForMember(p => p.Categories, opt => opt.Ignore()).ReverseMap();
+                cfg.CreateMap<Product, ManageProductViewModel>()
+                   .ForMember(
+                        p => p.HasThumbnail,
+                        opt => opt.MapFrom(p => p.Thumbnail != null && p.Thumbnail.IsFilled()));
+                cfg.CreateMap<Product, ProductViewModel>()
+                   .ForMember(
+                        p => p.HasThumbnail,
+                        opt => opt.MapFrom(p => p.Thumbnail != null && p.Thumbnail.IsFilled()));
+                cfg.CreateMap<Product, ProductDetailsViewModel>()
+                   .ForMember(p => p.Categories, opt => opt.Ignore())
+                   .ForMember(p => p.ImageType, opt => opt.MapFrom(src => src.Thumbnail.ImageType))
+                   .ForMember(p => p.ImageData, opt => opt.MapFrom(src => src.Thumbnail.ImageData))
+                   .ReverseMap();
                 cfg.CreateMap<Category, ManageCategoryViewModel>().ReverseMap();
             });
         }

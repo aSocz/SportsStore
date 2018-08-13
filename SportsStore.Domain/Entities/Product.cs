@@ -11,6 +11,7 @@ namespace SportsStore.Domain.Entities
         public decimal Price { get; set; }
         public bool IsActive { get; set; }
         public int CategoryId { get; set; }
+        public Image Thumbnail { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual ICollection<CartLine> CartLines { get; set; }
@@ -21,6 +22,7 @@ namespace SportsStore.Domain.Entities
             Description = updatedProduct.Description;
             Price = updatedProduct.Price;
             CategoryId = updatedProduct.CategoryId;
+            Thumbnail = updatedProduct.Thumbnail;
         }
     }
 }

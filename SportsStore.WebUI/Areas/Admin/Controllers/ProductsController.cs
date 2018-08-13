@@ -7,6 +7,7 @@ using SportsStore.WebUI.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
@@ -45,7 +46,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(ProductDetailsViewModel viewModel)
+        public async Task<ActionResult> Create(ProductDetailsViewModel viewModel, HttpPostedFileBase image = null)
         {
             if (!ModelState.IsValid)
             {
@@ -54,6 +55,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             }
 
             var product = viewModel.ToProduct();
+            product.Thumbnail = ReadImage(image);
 
             var validationResult = productValidator.Validate(product);
             if (!validationResult.IsValid())
@@ -82,7 +84,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(ProductDetailsViewModel viewModel)
+        public async Task<ActionResult> Edit(ProductDetailsViewModel viewModel, HttpPostedFileBase image = null)
         {
             if (!ModelState.IsValid)
             {
@@ -91,6 +93,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             }
 
             var product = viewModel.ToProduct();
+            product.Thumbnail = ReadImage(image);
 
             var validationResult = productValidator.Validate(product);
             if (!validationResult.IsValid())
@@ -117,6 +120,18 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             TempData["message"] = $"Usunięto produkt {product.Name}";
 
             return RedirectToActionPermanent("Index");
+        }
+
+        private static Image ReadImage(HttpPostedFileBase image)
+        {
+            if (image == null)
+            {
+                return null;
+            }
+
+            var imageData = new byte[image.ContentLength];
+            image.InputStream.Read(imageData, 0, image.ContentLength);
+            return new Image(imageData, image.ContentType);
         }
 
         private IEnumerable<SelectListItem> GetCategories(int? selectedCategoryId = null)

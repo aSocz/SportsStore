@@ -9,38 +9,60 @@
         <h1>Edycja @Model.Name</h1>
     </div>
 
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new {enctype="multipart/form-data"}))
     {
         @Html.AntiForgeryToken()
         <div class="panel-body">
             @Html.HiddenFor(m => m.ProductId)
             <div class="form-group">
                 @Html.LabelFor(m => m.Name)
-                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
                 @Html.ValidationMessageFor(m => m.Name)
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.Price)
-                @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Price, new {@class = "form-control"})
                 @Html.ValidationMessageFor(m => m.Price)
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.Description)
-                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = 5 })
+                @Html.TextAreaFor(m => m.Description, new {@class = "form-control", rows = 5})
                 @Html.ValidationMessageFor(m => m.Description)
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.CategoryId)
                 <div class="form-inline">
-                    @Html.DropDownListFor(m => m.CategoryId, Model.Categories, new { @class = "form-control" })
-                    @Html.ActionLink("Dodaj kategorie", "Create", "Categories", null, new { @class = "btn btn-default" })
+                    @Html.DropDownListFor(m => m.CategoryId, Model.Categories, new {@class = "form-control"})
+                    @Html.ActionLink("Dodaj kategorie", "Create", "Categories", null, new {@class = "btn btn-default"})
                     @Html.ValidationMessageFor(m => m.Name)
                 </div>
             </div>
+            <div class="form-group">
+                <div style="position: relative">
+                    <label>Zdjęcie</label>
+                    <a class="btn" href="javascript:;">
+                        Wybierz plik...
+                        <input type="file"
+                               name="Image"
+                               size="40"
+                               style="background-color: transparent; color: transparent; filter: alpha(opacity=0); left: 0; opacity: 0; position: absolute; top: 0; z-index: 2;"
+                               onchange='$("#upload-file-info").html($(this).val());'/>
+                    </a>
+                    <span class="label label-info" id="upload-file-info"></span>
+                </div>
+                @if (Model.ImageData == null || !Model.ImageData.Any())
+                {
+                    <div class="form-control-static">Brak zdjęcia</div>
+                }
+                else
+                {
+                    <img class="img-thumbnail" width="150" height="150" src="@Url.Action("GetImage", "Products", new {Model.ProductId, area= ""})"/>
+                }
+            </div>
         </div>
         <div class="panel-footer">
-            <input type="submit" value="Zapisz produkt" class="btn btn-primary" />
-            @Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn btn-default" })
+            <input type="submit" value="Zapisz produkt" class="btn btn-primary"/>
+            @Html.ActionLink("Powrót do listy", "Index", null, new {@class = "btn btn-default"})
         </div>
     }
 </div>

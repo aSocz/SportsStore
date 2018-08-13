@@ -109,6 +109,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\Admin_ProductsTests.cs" />
     <Compile Include="Controllers\CartControllerTests.cs" />
+    <Compile Include="Controllers\ImageTests.cs" />
     <Compile Include="Domain\CartTests.cs" />
     <Compile Include="Domain\RepositoryTests.cs" />
     <Compile Include="Domain\UnitOfWorkTests.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Helpers\FakeUnitOfWork.cs" />
     <Compile Include="HTMLHelpers\HtmlHelpersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Routing\RoutingTests.cs" />
     <Compile Include="Services\CategoryServiceTests.cs" />
     <Compile Include="Services\OrderServiceTests.cs" />
     <Compile Include="Services\ProductServiceTests.cs" />

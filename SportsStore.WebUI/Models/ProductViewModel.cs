@@ -14,5 +14,7 @@ namespace SportsStore.WebUI.Models
 
         [Display(Name = "Cena")]
         public decimal Price { get; set; }
+
+        public bool HasThumbnail { get; set; }
     }
 }
