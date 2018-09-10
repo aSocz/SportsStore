@@ -1,0 +1,31 @@
+﻿@using System.Web.Mvc.Html
+@model IEnumerable<SportsStore.WebUI.Areas.Admin.Models.UserGridViewModel>
+
+@{
+    ViewBag.Title = "Zarządzanie użytkownikami";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>@ViewBag.Title</h3>
+    </div>
+</div>
+<div class="panel-body">
+    <table class="table table-striped table-condensed table-bordered">
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.UserName)</th>
+            <th>@Html.DisplayNameFor(m => m.Email)</th>
+            <th>@Html.DisplayNameFor(m => m.Roles)</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UserName</td>
+                <td>@item.Email</td>
+                <td>@item.Roles</td>
+            </tr>
+        }
+    </table>
+</div>

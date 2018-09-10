@@ -1,0 +1,17 @@
+﻿@model SportsStore.WebUI.Models.AccountDetailsViewModel
+
+@{
+    ViewBag.Title = "Edycja użytkownika";
+}
+
+<div class="panel">
+    <div class="panel">
+        <h1>Edycja użytkownika</h1>
+    </div>
+
+    @using (Html.BeginForm("Edit", "Accounts"))
+    {
+        @Html.Partial("_Fields", Model)
+        @Html.Partial("_Address", Model.Address)
+    }
+</div>

@@ -33,6 +33,7 @@ namespace SportsStore.WebUI.Infrastructure
                    .ForMember(p => p.ImageData, opt => opt.MapFrom(src => src.Thumbnail.ImageData))
                    .ReverseMap();
                 cfg.CreateMap<Category, ManageCategoryViewModel>().ReverseMap();
+                cfg.CreateMap<Address, AddressViewModel>().ReverseMap();
             });
         }
 

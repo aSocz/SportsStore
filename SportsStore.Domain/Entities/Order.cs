@@ -13,8 +13,10 @@ namespace SportsStore.Domain.Entities
         public string ClientEmail { get; set; }
         public bool GiftWrap { get; set; }
         public DateTime OrderDate { get; set; }
+        public int? UserInformationId { get; set; }
 
         public virtual Address Address { get; set; }
+        public virtual UserInformation UserInformation { get; set; }
         public virtual ICollection<CartLine> CartLines { get; set; }
 
         public string GetOrderSummary()

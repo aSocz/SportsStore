@@ -50,6 +50,7 @@
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\UserInformation.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\IEmailSender.cs" />
     <Compile Include="Interfaces\IOrderService.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IShoppingCart.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IUserInformationService.cs" />
     <Compile Include="Interfaces\IValidatable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

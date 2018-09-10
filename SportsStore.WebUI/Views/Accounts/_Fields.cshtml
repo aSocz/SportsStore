@@ -1,0 +1,26 @@
+﻿@model SportsStore.WebUI.Models.AccountDetailsViewModel
+
+@Html.HiddenFor(m => m.ReturnUrl)
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+<div class="panel-body">
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
+        @Html.EditorFor(m => m.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+</div>
+<div class="panel-footer">
+    <input type="submit" value="Zapisz" class="btn btn-primary" />
+    <a href="@Model.ReturnUrl" class="btn btn-default">Powrót</a>
+</div>

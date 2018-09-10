@@ -8,13 +8,13 @@ namespace SportsStore.WebUI.Extensions
         public static Address GetAddress(this ShippingInformationViewModel shippingInformation)
         {
             return new Address(
-               shippingInformation.Line1,
-               shippingInformation.City,
-               shippingInformation.State,
-               shippingInformation.Zip,
-               shippingInformation.Country,
-               shippingInformation.Line2,
-               shippingInformation.Line3);
+               shippingInformation.Address.Line1,
+               shippingInformation.Address.City,
+               shippingInformation.Address.State,
+               shippingInformation.Address.Zip,
+               shippingInformation.Address.Country,
+               shippingInformation.Address.Line2,
+               shippingInformation.Address.Line3);
         }
     }
 }
