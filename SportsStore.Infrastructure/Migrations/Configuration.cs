@@ -1,4 +1,6 @@
+using Microsoft.AspNet.Identity;
 using SportsStore.Domain.Entities;
+using SportsStore.Infrastructure.Identity;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -14,6 +16,42 @@ namespace SportsStore.Infrastructure.Migrations
 
         protected override void Seed(SportsStoreContext context)
         {
+            var userManager = new SportsStoreUserManager(new UserStore(context));
+            var roleManager = new RoleManager<Role, int>(new RoleStore(context));
+            if (!roleManager.RoleExists("Admin"))
+            {
+                roleManager.Create(new Role("Admin"));
+            }
+
+            if (!roleManager.RoleExists("Customer"))
+            {
+                roleManager.Create(new Role("Customer"));
+            }
+
+            var user = userManager.FindByName("Admin");
+            if (user == null)
+            {
+                var adminAddress = new Address("line1", "adminCity", "adminState", "adminZip", "adminCountry");
+                var adminInformation = new UserInformation(adminAddress);
+                var admin = new SportsStoreUser("Admin", "admin@gmail.com", adminInformation)
+                {
+                    PasswordHash = userManager.PasswordHasher.HashPassword("admin123")
+                };
+
+                userManager.Create(admin);
+                user = userManager.FindByName("Admin");
+            }
+
+            if (!userManager.IsInRole(user.Id, "Admin"))
+            {
+                userManager.AddToRole(user.Id, "Admin");
+            }
+
+            if (!userManager.IsInRole(user.Id, "Customer"))
+            {
+                userManager.AddToRole(user.Id, "Customer");
+            }
+
             if (!context.Categories.Any())
             {
                 var categories = new List<Category>

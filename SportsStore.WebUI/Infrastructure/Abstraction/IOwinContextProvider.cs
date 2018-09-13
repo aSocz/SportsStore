@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin;
 using System.Web;
 
-namespace SportsStore.WebUI.Infrastructure
+namespace SportsStore.WebUI.Infrastructure.Abstraction
 {
     public interface IOwinContextProvider
     {

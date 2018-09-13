@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using SportsStore.Business.Extensions;
+using SportsStore.Business.Models;
 using SportsStore.Domain.Entities;
 using SportsStore.Domain.Interfaces;
 using System;
@@ -43,42 +45,33 @@ namespace SportsStore.Infrastructure.Identity
         }
 
         public async Task<IdentityResult> CreateAsync(
-            SportsStoreUser user,
-            string password,
-            UserInformation userInformation,
+            AccountDto accountDto,
             IUserInformationService userInformationService)
         {
-            var identityResult = await base.CreateAsync(user, password);
-            if (!identityResult.Succeeded)
-            {
-                return identityResult;
-            }
+            var userInformation = new UserInformation(Mapper.Map<AddressDto, Address>(accountDto.AddressDto));
 
-            userInformation.UserId = user.Id;
-            await userInformationService.CreateUserInformation(userInformation);
-
-            return identityResult;
+            var user = new SportsStoreUser(accountDto.UserName, accountDto.Email, userInformation);
+            return await base.CreateAsync(user, accountDto.Password);
         }
 
         public async Task<IdentityResult> UpdateAsync(
             int userId,
-            SportsStoreUser user,
-            string password,
-            UserInformation userInformation,
+            AccountDto accountDto,
             IUserInformationService userInformationService)
         {
             var storedUser = await FindByIdAsync(userId);
             storedUser.ThrowIfNull();
-            if (!string.IsNullOrWhiteSpace(password))
+
+            if (!string.IsNullOrWhiteSpace(accountDto.Password))
             {
-                var validationResult = await PasswordValidator.ValidateAsync(password);
+                var validationResult = await PasswordValidator.ValidateAsync(accountDto.Password);
                 if (!validationResult.Succeeded)
                 {
                     return validationResult;
                 }
             }
 
-            storedUser.Update(user, password, PasswordHasher);
+            storedUser.Update(accountDto, PasswordHasher);
 
             var identityResult = await base.UpdateAsync(storedUser);
             if (!identityResult.Succeeded)
@@ -86,7 +79,8 @@ namespace SportsStore.Infrastructure.Identity
                 return identityResult;
             }
 
-            var storedUserInformation = userInformationService.GetUserInformation(user.Id);
+            var userInformation = new UserInformation(Mapper.Map<AddressDto, Address>(accountDto.AddressDto));
+            var storedUserInformation = userInformationService.GetUserInformation(storedUser.Id);
             userInformation.UserId = storedUserInformation.UserId;
             userInformation.UserInformationId = storedUserInformation.UserInformationId;
 

@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using SportsStore.Infrastructure.Identity;
 using SportsStore.WebUI.Areas.Admin.Models;
-using SportsStore.WebUI.Infrastructure;
+using SportsStore.WebUI.Infrastructure.Abstraction;
 using System.Linq;
 using System.Web.Mvc;
 

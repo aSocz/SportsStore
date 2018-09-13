@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -79,6 +82,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Identity\AccountService.cs" />
+    <Compile Include="Identity\IAccountService.cs" />
     <Compile Include="Identity\Miscellaneous.cs" />
     <Compile Include="Identity\SportsStoreSignInManager.cs" />
     <Compile Include="Identity\SportsStoreUser.cs" />
@@ -102,6 +107,10 @@
     <Compile Include="Migrations\201808041025538_AddsProductThumbnail.cs" />
     <Compile Include="Migrations\201808041025538_AddsProductThumbnail.Designer.cs">
       <DependentUpon>201808041025538_AddsProductThumbnail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809132003486_adds_identity_management.cs" />
+    <Compile Include="Migrations\201809132003486_adds_identity_management.Designer.cs">
+      <DependentUpon>201809132003486_adds_identity_management.cs</DependentUpon>
     </Compile>
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
@@ -153,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808041025538_AddsProductThumbnail.resx">
       <DependentUpon>201808041025538_AddsProductThumbnail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809132003486_adds_identity_management.resx">
+      <DependentUpon>201809132003486_adds_identity_management.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

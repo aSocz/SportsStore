@@ -11,7 +11,7 @@
 
     @using (Html.BeginForm("Create", "Accounts"))
     {
-        @Html.Partial("_Fields", Model)
+        @Html.Partial("_AccountDetails", Model)
         @Html.Partial("_Address", Model.Address)
     }
 </div>

@@ -66,6 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Models\AddressDto.cs" />
+    <Compile Include="Models\AccountDto.cs" />
     <Compile Include="Services\UserInformationService.cs" />
     <Compile Include="Validation\Validators\CategoryValidator.cs" />
     <Compile Include="Validation\IValidator.cs" />

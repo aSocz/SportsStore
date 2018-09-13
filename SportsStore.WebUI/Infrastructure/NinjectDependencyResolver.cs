@@ -8,6 +8,7 @@ using SportsStore.Domain.Interfaces;
 using SportsStore.Infrastructure;
 using SportsStore.Infrastructure.Repositories;
 using SportsStore.Infrastructure.Tools;
+using SportsStore.WebUI.Infrastructure.Abstraction;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;

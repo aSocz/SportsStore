@@ -5,7 +5,7 @@ using System.Data.Entity;
 
 namespace SportsStore.Infrastructure
 {
-    public class SportsStoreContext : IdentityDbContext
+    public class SportsStoreContext : IdentityDbContext<SportsStoreUser, Role, int, UserLogin, UserRole, UserClaim>
     {
         public SportsStoreContext() : base("name=SportsStore")
         {

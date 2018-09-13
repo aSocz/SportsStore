@@ -12,6 +12,6 @@ namespace SportsStore.Business.Validation
 
         public IEnumerable<ValidationError> Errors { get; }
 
-        public bool IsValid() => !Errors.Any();
+        public bool IsValid() => Errors == null || !Errors.Any();
     }
 }

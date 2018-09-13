@@ -11,5 +11,13 @@ namespace SportsStore.Business.Extensions
                 throw new ArgumentException("Given non existing object");
             }
         }
+
+        public static void ThrowIfNullOrEmpty(this string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                throw new ArgumentException("Given non existing object");
+            }
+        }
     }
 }
