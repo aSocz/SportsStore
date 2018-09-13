@@ -88,7 +88,6 @@ namespace SportsStore.Infrastructure
         private static void SetupUserInformationTable(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserInformation>().HasKey(ui => ui.UserInformationId);
-            modelBuilder.Entity<UserInformation>().Property(ui => ui.UserId).IsRequired();
             modelBuilder.Entity<UserInformation>()
                         .Property(o => o.Address.Line1)
                         .HasColumnName("AddressLine1")

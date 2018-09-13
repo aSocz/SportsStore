@@ -36,7 +36,14 @@ namespace SportsStore.WebUI.Infrastructure
                 cfg.CreateMap<Category, ManageCategoryViewModel>().ReverseMap();
                 cfg.CreateMap<AddressDto, AddressViewModel>().ReverseMap();
                 cfg.CreateMap<AddressDto, Address>().ReverseMap();
-                cfg.CreateMap<AccountDto, AccountDetailsViewModel>().ReverseMap();
+                cfg.CreateMap<AddressViewModel, Address>().ReverseMap();
+                cfg.CreateMap<AccountDto, AccountDetailsViewModel>()
+                   .ForMember(a => a.Name, opt => opt.MapFrom(src => src.UserName))
+                   .ForMember(a => a.Address, opt => opt.MapFrom(src => src.AddressDto))
+                   .ForMember(a => a.ReturnUrl, opt => opt.MapFrom(src => string.Empty));
+                cfg.CreateMap<AccountDetailsViewModel, AccountDto>()
+                   .ForMember(a => a.UserName, opt => opt.MapFrom(src => src.Name))
+                   .ForMember(a => a.AddressDto, opt => opt.MapFrom(src => src.Address));
             });
         }
 

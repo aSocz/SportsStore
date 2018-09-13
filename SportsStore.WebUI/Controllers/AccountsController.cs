@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using SportsStore.Business.Extensions;
-using SportsStore.Business.Interfaces;
 using SportsStore.Business.Models;
 using SportsStore.Business.Validation;
 using SportsStore.Domain.Entities;
@@ -18,27 +16,27 @@ using WebGrease.Css.Extensions;
 
 namespace SportsStore.WebUI.Controllers
 {
-    [Authorize]
     public class AccountsController : Controller
     {
-        private readonly IAccountService accountService;
-        private readonly IOwinContext owinContext;
+        private readonly IOwinContextProvider owinContextProvider;
         private readonly IUserInformationService userInformationService;
 
         public AccountsController(
             IOwinContextProvider owinContextProvider,
             IUserInformationService userInformationService)
         {
+            this.owinContextProvider = owinContextProvider;
             this.userInformationService = userInformationService;
-            owinContext = owinContextProvider.GetOwinContext(HttpContext.ApplicationInstance.Context);
-            accountService = new AccountService(
-                AuthManager,
-                UserManager,
-                userInformationService);
         }
 
-        private SportsStoreUserManager UserManager => owinContext.GetUserManager<SportsStoreUserManager>();
-        private IAuthenticationManager AuthManager => owinContext.Authentication;
+        private AccountService AccountService => new AccountService(AuthManager, UserManager, userInformationService);
+
+        private SportsStoreUserManager UserManager => owinContextProvider
+                                                     .GetOwinContext(HttpContext.ApplicationInstance.Context)
+                                                     .GetUserManager<SportsStoreUserManager>();
+
+        private IAuthenticationManager AuthManager =>
+            owinContextProvider.GetOwinContext(HttpContext.ApplicationInstance.Context).Authentication;
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -59,7 +57,7 @@ namespace SportsStore.WebUI.Controllers
                 return View(viewModel);
             }
 
-            var loginResult = await accountService.Login(viewModel.Name, viewModel.Password);
+            var loginResult = await AccountService.Login(viewModel.Name, viewModel.Password);
             if (loginResult.IsValid())
             {
                 return Redirect(viewModel.ReturnUrl);
@@ -96,12 +94,12 @@ namespace SportsStore.WebUI.Controllers
             }
 
             var creationResult =
-                await accountService.Create(Mapper.Map<AccountDetailsViewModel, AccountDto>(viewModel));
+                await AccountService.Create(Mapper.Map<AccountDetailsViewModel, AccountDto>(viewModel));
 
             if (creationResult.IsValid())
             {
-                var loginViewModel = GetLoginViewModel(viewModel);
-                return RedirectToAction("Login", loginViewModel);
+                await AccountService.Login(viewModel.Name, viewModel.Password);
+                return Redirect(viewModel.ReturnUrl);
             }
 
             FeedModelStateErrors(creationResult);
@@ -136,7 +134,7 @@ namespace SportsStore.WebUI.Controllers
 
             var userId = User.Identity.GetUserId<int>();
             var updateResult =
-                await accountService.Update(userId, Mapper.Map<AccountDetailsViewModel, AccountDto>(viewModel));
+                await AccountService.Update(userId, Mapper.Map<AccountDetailsViewModel, AccountDto>(viewModel));
 
             if (updateResult.IsValid())
             {
@@ -145,16 +143,6 @@ namespace SportsStore.WebUI.Controllers
 
             FeedModelStateErrors(updateResult);
             return View(viewModel);
-        }
-
-        private static AccountLoginViewModel GetLoginViewModel(AccountDetailsViewModel viewModel)
-        {
-            return new AccountLoginViewModel
-            {
-                Name = viewModel.Name,
-                Password = viewModel.Password,
-                ReturnUrl = viewModel.ReturnUrl
-            };
         }
 
         private void FeedModelStateErrors(ValidationResult result)

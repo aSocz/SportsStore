@@ -4,6 +4,11 @@ namespace SportsStore.WebUI.Models
 {
     public class ShippingInformationViewModel
     {
+        public ShippingInformationViewModel()
+        {
+            Address = new AddressViewModel();
+        }
+
         [Required(ErrorMessage = "Proszę podać imię i nazwisko")]
         [Display(Name = "Imie i Nazwisko:")]
         public string Name { get; set; }

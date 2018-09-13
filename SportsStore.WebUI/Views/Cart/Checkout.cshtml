@@ -24,7 +24,7 @@
         @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type="email" })
     </div>
 
-    @Html.Partial("_Address", Model.Address)
+    @Html.EditorFor(m => m.Address)
 
     <h3>Opcje</h3>
     <div class="form-group">

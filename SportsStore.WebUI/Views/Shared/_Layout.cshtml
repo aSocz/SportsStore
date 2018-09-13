@@ -23,13 +23,14 @@
     <div class="visible-xs">
         @Html.Action("Menu", "Navigation", new { horizontal = true })
     </div>
-    <div class="row panel">
-        <div class="col-sm-3 hidden-xs">
-            @{ Html.RenderAction("Menu", "Navigation", new { horizontal = false }); }
-        </div>
-        <div class="col-xs-12 col-sm-8">
-            @RenderBody()
-        </div>
+<div class="row panel">
+    <div class="col-sm-3 hidden-xs">
+        @{ Html.RenderAction("Menu", "Navigation", new { horizontal = false }); }
     </div>
+    <div class="col-xs-12 col-sm-8">
+        @RenderBody()
+    </div>
+</div>
+    @{ Html.RenderPartial("_Footer"); }
 </body>
 </html>

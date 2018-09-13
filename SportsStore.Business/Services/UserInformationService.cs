@@ -19,7 +19,7 @@ namespace SportsStore.Business.Services
 
         public UserInformation GetUserInformation(int userId)
         {
-            return userInformationRepository.Get(ui => ui.UserId == userId).FirstOrDefault();
+            return userInformationRepository.Get(ui => ui.UserInformationId == userId).FirstOrDefault();
         }
 
         public async Task CreateUserInformation(UserInformation userInformation)

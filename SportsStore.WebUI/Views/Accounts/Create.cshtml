@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Tworzenie użytkownika";
+    Layout = "../Shared/_AccountLayout.cshtml";
 }
 
 <div class="panel">
@@ -11,7 +12,13 @@
 
     @using (Html.BeginForm("Create", "Accounts"))
     {
-        @Html.Partial("_AccountDetails", Model)
-        @Html.Partial("_Address", Model.Address)
+        <div class="panel-body">
+            @Html.Partial("_AccountDetails", Model)
+            @Html.EditorFor(m => m.Address)
+            <div class="panel-footer">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+                <a href="@Model.ReturnUrl" class="btn btn-default">Powrót</a>
+            </div>
+        </div>
     }
 </div>

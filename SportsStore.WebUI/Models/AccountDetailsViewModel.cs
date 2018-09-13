@@ -5,6 +5,11 @@ namespace SportsStore.WebUI.Models
 {
     public class AccountDetailsViewModel
     {
+        public AccountDetailsViewModel()
+        {
+            Address = new AddressViewModel();
+        }
+
         [Required(ErrorMessage = "Proszę podać nazwę użytkownika")]
         [DisplayName("Nazwa użytkownika")]
         public string Name { get; set; }

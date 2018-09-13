@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using SportsStore.Business.Extensions;
 using SportsStore.Business.Models;
+using SportsStore.Domain.Constants;
 using SportsStore.Domain.Entities;
 using SportsStore.Domain.Interfaces;
 using System;
@@ -51,7 +52,13 @@ namespace SportsStore.Infrastructure.Identity
             var userInformation = new UserInformation(Mapper.Map<AddressDto, Address>(accountDto.AddressDto));
 
             var user = new SportsStoreUser(accountDto.UserName, accountDto.Email, userInformation);
-            return await base.CreateAsync(user, accountDto.Password);
+            var identityResult = await base.CreateAsync(user, accountDto.Password);
+            if (!identityResult.Succeeded)
+            {
+                return identityResult;
+            }
+
+            return await AddToRoleAsync(user.Id, Roles.Customer);
         }
 
         public async Task<IdentityResult> UpdateAsync(
@@ -81,7 +88,6 @@ namespace SportsStore.Infrastructure.Identity
 
             var userInformation = new UserInformation(Mapper.Map<AddressDto, Address>(accountDto.AddressDto));
             var storedUserInformation = userInformationService.GetUserInformation(storedUser.Id);
-            userInformation.UserId = storedUserInformation.UserId;
             userInformation.UserInformationId = storedUserInformation.UserInformationId;
 
             await userInformationService.EditUserInformation(userInformation);

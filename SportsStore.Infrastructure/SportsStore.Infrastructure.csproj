@@ -112,6 +112,10 @@
     <Compile Include="Migrations\201809132003486_adds_identity_management.Designer.cs">
       <DependentUpon>201809132003486_adds_identity_management.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809132258377_removes_unnecessary_FKs.cs" />
+    <Compile Include="Migrations\201809132258377_removes_unnecessary_FKs.Designer.cs">
+      <DependentUpon>201809132258377_removes_unnecessary_FKs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="Tools\EmailSender.cs" />
@@ -165,6 +169,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809132003486_adds_identity_management.resx">
       <DependentUpon>201809132003486_adds_identity_management.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809132258377_removes_unnecessary_FKs.resx">
+      <DependentUpon>201809132258377_removes_unnecessary_FKs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

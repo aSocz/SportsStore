@@ -1,0 +1,18 @@
+﻿<footer class="footer navbar-fixed-bottom">
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <a href="@Url.Action("Login", "Accounts", new {returnUrl = Request.Url.PathAndQuery})" class="btn btn-primary btn-lg pull-right margin-left">
+            <span class="glyphicon glyphicon-log-in"></span> Zaloguj
+        </a>
+    }
+    else
+    {
+        <a href="@Url.Action("Logout", "Accounts", new {returnUrl = Request.Url.PathAndQuery})" class="btn btn-space btn-primary btn-lg pull-right margin-left">
+            <span class="glyphicon glyphicon-log-out"></span> Wyloguj
+        </a>
+        <a href="@Url.Action("Edit", "Accounts", new {returnUrl = Request.Url.PathAndQuery})" class="btn btn-space btn-primary btn-lg pull-right margin-left">
+            <span class="glyphicon glyphicon-pencil"></span> Edytuj konto
+        </a>
+        <h4 class="logged-user"><span class="label label-default">Zalogowano jako: @User.Identity.Name</span></h4>
+    }
+</footer>

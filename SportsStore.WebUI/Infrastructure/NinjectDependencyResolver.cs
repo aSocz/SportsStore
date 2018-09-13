@@ -47,6 +47,7 @@ namespace SportsStore.WebUI.Infrastructure
             kernel.Bind(typeof(IValidator<Category>)).To(typeof(CategoryValidator)).InRequestScope();
             kernel.Bind(typeof(IValidator<Product>)).To(typeof(ProductValidator)).InRequestScope();
             kernel.Bind<IOwinContextProvider>().To<OwinContextProvider>().InRequestScope();
+            kernel.Bind<IUserInformationService>().To<UserInformationService>().InRequestScope();
         }
     }
 }

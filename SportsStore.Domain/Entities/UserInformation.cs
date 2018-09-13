@@ -14,7 +14,6 @@ namespace SportsStore.Domain.Entities
         }
 
         public int UserInformationId { get; set; }
-        public int UserId { get; set; }
         public Address Address { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
 

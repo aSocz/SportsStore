@@ -25,7 +25,6 @@ namespace SportsStore.Infrastructure.Identity
             Email = email;
         }
 
-        public int UserInformationId { get; protected set; }
         public virtual UserInformation UserInformation { get; protected set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(SportsStoreUserManager manager)

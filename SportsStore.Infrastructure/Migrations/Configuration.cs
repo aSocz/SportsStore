@@ -1,4 +1,5 @@
 using Microsoft.AspNet.Identity;
+using SportsStore.Domain.Constants;
 using SportsStore.Domain.Entities;
 using SportsStore.Infrastructure.Identity;
 using System.Collections.Generic;
@@ -18,14 +19,14 @@ namespace SportsStore.Infrastructure.Migrations
         {
             var userManager = new SportsStoreUserManager(new UserStore(context));
             var roleManager = new RoleManager<Role, int>(new RoleStore(context));
-            if (!roleManager.RoleExists("Admin"))
+            if (!roleManager.RoleExists(Roles.Admin))
             {
-                roleManager.Create(new Role("Admin"));
+                roleManager.Create(new Role(Roles.Admin));
             }
 
-            if (!roleManager.RoleExists("Customer"))
+            if (!roleManager.RoleExists(Roles.Customer))
             {
-                roleManager.Create(new Role("Customer"));
+                roleManager.Create(new Role(Roles.Customer));
             }
 
             var user = userManager.FindByName("Admin");
@@ -42,14 +43,14 @@ namespace SportsStore.Infrastructure.Migrations
                 user = userManager.FindByName("Admin");
             }
 
-            if (!userManager.IsInRole(user.Id, "Admin"))
+            if (!userManager.IsInRole(user.Id, Roles.Admin))
             {
-                userManager.AddToRole(user.Id, "Admin");
+                userManager.AddToRole(user.Id, Roles.Admin);
             }
 
-            if (!userManager.IsInRole(user.Id, "Customer"))
+            if (!userManager.IsInRole(user.Id, Roles.Customer))
             {
-                userManager.AddToRole(user.Id, "Customer");
+                userManager.AddToRole(user.Id, Roles.Customer);
             }
 
             if (!context.Categories.Any())

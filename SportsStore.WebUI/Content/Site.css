@@ -1,4 +1,13 @@
-﻿
+﻿* {
+    padding: 0px;
+    margin: 0px;
+}
+
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -17,4 +26,31 @@ textarea {
     float: right !important;
     margin-right: 15px;
     margin-left: 15px
+}
+
+body {
+    padding-bottom: 50px;
+}
+
+.footer {
+    float: right !important;
+    background-image: linear-gradient(white, #e3e3e3);
+    padding-bottom: 5px;
+    padding-right: 10px;
+    height: 50px;
+}
+
+.logged-user {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+}
+
+.account-content {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.margin-left {
+    margin-left: 10px;
 }
