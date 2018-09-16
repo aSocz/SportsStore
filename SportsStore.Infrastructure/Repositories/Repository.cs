@@ -9,7 +9,8 @@ namespace SportsStore.Infrastructure.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly IDbSet<T> dbSet;
+        protected readonly IDbSet<T> dbSet;
+        protected readonly SportsStoreContext dbContext;
 
         public Repository(SportsStoreContext dbContext)
         {

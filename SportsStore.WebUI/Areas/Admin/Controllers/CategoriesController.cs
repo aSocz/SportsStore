@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoriesController : Controller
     {
         private readonly ICategoryService categoryService;

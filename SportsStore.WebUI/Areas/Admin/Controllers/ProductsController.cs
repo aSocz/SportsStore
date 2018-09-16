@@ -12,6 +12,8 @@ using System.Web.Mvc;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
+
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private readonly ICategoryService categoryService;

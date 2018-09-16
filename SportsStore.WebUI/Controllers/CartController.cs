@@ -1,23 +1,32 @@
-﻿using SportsStore.Domain.Entities;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity.Owin;
+using SportsStore.Domain.Entities;
 using SportsStore.Domain.Interfaces;
+using SportsStore.Infrastructure.Identity;
 using SportsStore.WebUI.Extensions;
 using SportsStore.WebUI.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace SportsStore.WebUI.Controllers
 {
     public class CartController : Controller
     {
-        private readonly IProductService productService;
         private readonly IOrderService orderService;
+        private readonly IProductService productService;
+        private readonly IUserInformationService userInformationService;
 
-        public CartController(IProductService productService, IOrderService orderService)
+        public CartController(
+            IProductService productService,
+            IOrderService orderService,
+            IUserInformationService userInformationService)
         {
             this.productService = productService;
             this.orderService = orderService;
+            this.userInformationService = userInformationService;
         }
 
         public ViewResult Index(Cart cart, string returnUrl)
@@ -25,13 +34,15 @@ namespace SportsStore.WebUI.Controllers
             var viewModel = new CartIndexViewModel
             {
                 Items = cart.Items
-                    .Select(i => new CartItemViewModel
-                    {
-                        ProductName = i.Product.Name,
-                        ProductPrice = i.Product.Price,
-                        Quantity = i.Quantity,
-                        ProductId = i.Product.ProductId
-                    }).ToList(),
+                            .Select(
+                                 i => new CartItemViewModel
+                                 {
+                                     ProductName = i.Product.Name,
+                                     ProductPrice = i.Product.Price,
+                                     Quantity = i.Quantity,
+                                     ProductId = i.Product.ProductId
+                                 })
+                            .ToList(),
                 ReturnUrl = returnUrl
             };
 
@@ -62,14 +73,24 @@ namespace SportsStore.WebUI.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public PartialViewResult Summary(Cart cart)
-        {
-            return PartialView(cart);
-        }
+        public PartialViewResult Summary(Cart cart) => PartialView(cart);
 
-        public ViewResult Checkout()
+        public async Task<ViewResult> Checkout()
         {
-            return View(new ShippingInformationViewModel());
+            var viewModel = new ShippingInformationViewModel();
+            if (!User.Identity.IsAuthenticated)
+            {
+                return View(viewModel);
+            }
+
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            var userInformation = userInformationService.GetUserInformation(user.Id);
+
+            viewModel.Address = Mapper.Map<Address, AddressViewModel>(userInformation.Address);
+            viewModel.Name = user.UserName;
+            viewModel.Email = user.Email;
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -97,11 +118,20 @@ namespace SportsStore.WebUI.Controllers
                 OrderDate = DateTime.UtcNow
             };
 
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await UserManager.FindByNameAsync(User.Identity.Name);
+                order.UserInformationId = user.Id;
+            }
+
             await orderService.AddOrder(order);
 
             Session.ClearCart();
 
             return View("Completed");
         }
+
+        private SportsStoreUserManager UserManager => HttpContext.GetOwinContext()
+                                                                 .GetUserManager<SportsStoreUserManager>();
     }
 }

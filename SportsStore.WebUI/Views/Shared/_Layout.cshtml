@@ -13,10 +13,10 @@
 </head>
 <body>
     <div class="navbar navbar-inverse" role="navigation">
-        <a class="navbar-brand" href="#">
-            <div href="" class="hidden-xs">TAI-shop</div>
-            <div href="" class="visible-xs">TAI </div>
-            <div href="" class="visible-xs">shop </div>
+        <a class="navbar-brand" href="@Url.Action("Index", "Products")">
+            <div href="@Url.Action("Index", "Products")" class="hidden-xs">TAI-shop</div>
+            <div href="@Url.Action("Index", "Products")" class="visible-xs">TAI </div>
+            <div href="@Url.Action("Index", "Products")" class="visible-xs">shop </div>
         </a>
         @{ Html.RenderAction("Summary", "Cart"); }
     </div>

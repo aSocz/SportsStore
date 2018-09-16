@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly IOwinContext owinContext;

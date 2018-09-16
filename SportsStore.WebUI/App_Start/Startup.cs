@@ -18,7 +18,7 @@ namespace SportsStore.WebUI
                 new CookieAuthenticationOptions
                 {
                     AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                    LoginPath = new PathString("/Account/Login")
+                    LoginPath = new PathString("/Accounts/Login")
                 });
         }
     }

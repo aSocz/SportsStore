@@ -16,6 +16,7 @@ using WebGrease.Css.Extensions;
 
 namespace SportsStore.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin, Customer")]
     public class AccountsController : Controller
     {
         private readonly IOwinContextProvider owinContextProvider;
@@ -41,7 +42,10 @@ namespace SportsStore.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            returnUrl.ThrowIfNullOrEmpty();
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("List", "Products");
+            }
 
             var viewModel = new AccountLoginViewModel { ReturnUrl = returnUrl };
             return View(viewModel);
@@ -76,6 +80,7 @@ namespace SportsStore.WebUI.Controllers
             return Redirect(returnUrl);
         }
 
+        [AllowAnonymous]
         public ActionResult Create(string returnUrl)
         {
             returnUrl.ThrowIfNullOrEmpty();
@@ -85,6 +90,7 @@ namespace SportsStore.WebUI.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(AccountDetailsViewModel viewModel)
         {
